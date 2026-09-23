@@ -30,6 +30,38 @@ export const initializeStorage = (): void => {
         usersMap[demoUser.id] = { ...demoUser };
       });
       localStorage.setItem(STORAGE_USERS_KEY, JSON.stringify(usersMap));
+    } else {
+      try {
+        const usersMap: Record<string, User> = JSON.parse(existingUsers);
+        let modified = false;
+        initialUsers.forEach((demoUser) => {
+          if (!usersMap[demoUser.id]) {
+            usersMap[demoUser.id] = { ...demoUser };
+            modified = true;
+          } else {
+            if (!usersMap[demoUser.id].streakChallenges) {
+              usersMap[demoUser.id].streakChallenges = { ...(demoUser.streakChallenges || {}) };
+              modified = true;
+            } else if (demoUser.streakChallenges) {
+              Object.keys(demoUser.streakChallenges).forEach((k) => {
+                if (!usersMap[demoUser.id].streakChallenges![k]) {
+                  usersMap[demoUser.id].streakChallenges![k] = demoUser.streakChallenges![k];
+                  modified = true;
+                }
+              });
+            }
+            if (usersMap[demoUser.id].bestStreak === undefined && demoUser.bestStreak !== undefined) {
+              usersMap[demoUser.id].bestStreak = demoUser.bestStreak;
+              modified = true;
+            }
+          }
+        });
+        if (modified) {
+          localStorage.setItem(STORAGE_USERS_KEY, JSON.stringify(usersMap));
+        }
+      } catch (e) {
+        console.error('Migration error:', e);
+      }
     }
   } catch (err) {
     console.error('Error initializing FitShop storage:', err);

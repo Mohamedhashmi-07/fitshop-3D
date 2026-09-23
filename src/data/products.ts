@@ -1,7 +1,49 @@
 import { Product } from '../types';
 
 export const products: Product[] = [
-  // 1. Mandatory Demo Flagship Product
+  // 1. Mandatory Test Product — Nike Air Max 270 (Prompt Section 1, 37)
+  {
+    id: 'nike-air-max-270',
+    name: 'Nike Air Max 270',
+    brand: 'Nike',
+    brandId: 'nike',
+    category: 'Footwear',
+    categoryId: 'footwear',
+    description: 'Iconic lifestyle sneaker boasting Nike’s biggest heel Max Air unit yet for an ultra-cushioned ride, breathable knit upper, and all-day street style.',
+    originalPrice: 12450, // ₹12,450 (20% OFF -> ₹9,960, Savings: ₹2,490)
+    fitnessOffer: {
+      discountPercentage: 20,
+      streakRequiredDays: 7,
+      dailyTarget: 5000,
+      targetUnit: 'Steps',
+      requirement: {
+        type: 'walking',
+        target: 5000,
+        unit: 'Steps',
+        description: '7-Day Streak · 5,000 Steps/Day',
+        challengeId: 'challenge-nike-air-max-270',
+        streakRequiredDays: 7,
+        dailyTarget: 5000,
+      },
+    },
+    rating: 4.9,
+    reviewCount: 428,
+    stock: 24,
+    images: [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80',
+    ],
+    featured: true,
+    trending: true,
+    specs: {
+      'Cushioning': 'Large-volume Max Air 270 unit in heel',
+      'Upper': 'Engineered mesh with stretchy inner sleeve fit',
+      'Weight': '310g (Size UK 9)',
+      'Outsole': 'Dual-density foam with solid rubber traction perimeter',
+    },
+  },
+  // 2. Running Shoes (Prompt Section 17)
   {
     id: 'stepz-phantom-marathon-elite',
     name: 'Stepz Phantom Marathon Elite',
@@ -10,15 +52,20 @@ export const products: Product[] = [
     category: 'Footwear',
     categoryId: 'footwear',
     description: 'Ultra-responsive marathon racing shoe engineered with dual carbon-infused propulsion plates and PEBA supercritical foam for maximum energy return over 42.195 km.',
-    originalPrice: 10999, // ₹10,999 (40% OFF -> ₹6,599.40, Savings: ₹4,399.60)
+    originalPrice: 10999, // ₹10,999 (25% OFF -> ₹8,249.25)
     fitnessOffer: {
-      discountPercentage: 40,
+      discountPercentage: 25,
+      streakRequiredDays: 5,
+      dailyTarget: 5,
+      targetUnit: 'KM',
       requirement: {
         type: 'running',
         target: 5,
         unit: 'KM',
-        description: '5 KM Running Challenge',
+        description: '5-Day Streak · 5 KM Running/Day',
         challengeId: 'challenge-stepz-5k',
+        streakRequiredDays: 5,
+        dailyTarget: 5,
       },
     },
     rating: 4.9,
@@ -73,7 +120,7 @@ export const products: Product[] = [
       'Upper': 'Engineered mesh with Flywire cables',
     },
   },
-  // 3. Smartwatch
+  // 3. Smartwatch (Prompt Section 17)
   {
     id: 'pulsegear-apex-pro',
     name: 'PulseGear Apex GPS Biometric Watch',
@@ -84,13 +131,18 @@ export const products: Product[] = [
     description: 'Precision multisport GPS smartwatch with continuous heart rate, SpO2, HRV recovery tracker and 14-day battery life.',
     originalPrice: 14999,
     fitnessOffer: {
-      discountPercentage: 25,
+      discountPercentage: 15,
+      streakRequiredDays: 10,
+      dailyTarget: 8000,
+      targetUnit: 'Steps',
       requirement: {
         type: 'walking',
-        target: 10000,
+        target: 8000,
         unit: 'Steps',
-        description: '10,000 Daily Steps',
+        description: '10-Day Streak · 8,000 Steps/Day',
         challengeId: 'challenge-10k-steps',
+        streakRequiredDays: 10,
+        dailyTarget: 8000,
       },
     },
     rating: 4.8,
@@ -115,12 +167,17 @@ export const products: Product[] = [
     originalPrice: 18500,
     fitnessOffer: {
       discountPercentage: 35,
+      streakRequiredDays: 5,
+      dailyTarget: 30,
+      targetUnit: 'Mins',
       requirement: {
         type: 'workout',
-        target: 45,
+        target: 30,
         unit: 'Mins',
-        description: '45 Mins Home Workout',
+        description: '5-Day Streak · 30 Mins Workout/Day',
         challengeId: 'challenge-hiit-burn',
+        streakRequiredDays: 5,
+        dailyTarget: 30,
       },
     },
     rating: 4.9,
@@ -133,7 +190,7 @@ export const products: Product[] = [
     featured: true,
     trending: false,
   },
-  // 5. Cycling Cleats
+  // 5. Cycling Cleats (Prompt Section 17)
   {
     id: 'velocity-aero-cleats',
     name: 'Velocity Aero Carbon Road Cleats',
@@ -145,12 +202,17 @@ export const products: Product[] = [
     originalPrice: 8499,
     fitnessOffer: {
       discountPercentage: 30,
+      streakRequiredDays: 7,
+      dailyTarget: 10,
+      targetUnit: 'KM',
       requirement: {
         type: 'cycling',
-        target: 20,
+        target: 10,
         unit: 'KM',
-        description: '20 KM Cycling Challenge',
+        description: '7-Day Streak · 10 KM Cycling/Day',
         challengeId: 'challenge-20k-cycling',
+        streakRequiredDays: 7,
+        dailyTarget: 10,
       },
     },
     rating: 4.6,
@@ -162,7 +224,7 @@ export const products: Product[] = [
     featured: false,
     trending: true,
   },
-  // 6. Leather Powerlifting Belt
+  // 6. Leather Powerlifting Belt (Prompt Section 17)
   {
     id: 'titanfit-power-belt',
     name: 'TitanFit 10mm Top-Grain Leather Lever Belt',
@@ -174,12 +236,17 @@ export const products: Product[] = [
     originalPrice: 4999,
     fitnessOffer: {
       discountPercentage: 20,
+      streakRequiredDays: 5,
+      dailyTarget: 30,
+      targetUnit: 'Mins',
       requirement: {
         type: 'gym',
         target: 30,
         unit: 'Mins',
-        description: '30 Mins Heavy Lifting',
+        description: '5-Day Streak · 30 Mins Heavy Lifting/Day',
         challengeId: 'challenge-heavy-lifting',
+        streakRequiredDays: 5,
+        dailyTarget: 30,
       },
     },
     rating: 4.9,

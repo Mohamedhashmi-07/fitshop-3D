@@ -6,6 +6,7 @@ import { ActivitySection } from '../components/home/ActivitySection';
 import { EmergingBrands } from '../components/home/EmergingBrands';
 import { FitnessImpact } from '../components/home/FitnessImpact';
 import { HomeCTA } from '../components/home/HomeCTA';
+import { HomeStreakSection } from '../components/home/HomeStreakSection';
 import { OfferCard } from '../components/fitness/OfferCard';
 import { ProductCard } from '../components/products/ProductCard';
 import { products } from '../data/products';
@@ -64,6 +65,9 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* 5b. Streak-Based Fitness Challenge Section (Prompt Section 23) */}
+      <HomeStreakSection />
 
       {/* 6. Trending Products */}
       <section className="py-16 bg-slate-50/50 border-b border-slate-100">

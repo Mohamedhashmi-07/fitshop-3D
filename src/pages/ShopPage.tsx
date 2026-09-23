@@ -5,18 +5,22 @@ import { categories } from '../data/categories';
 import { brands } from '../data/brands';
 import { ProductGrid } from '../components/products/ProductGrid';
 import { SearchBar } from '../components/common/SearchBar';
-import { Filter, SlidersHorizontal, RotateCcw, Sparkles } from 'lucide-react';
+import { Filter, SlidersHorizontal, RotateCcw, Sparkles, Flame, CheckCircle2 } from 'lucide-react';
+import { useFitness } from '../context/FitnessContext';
 
 export const ShopPage: React.FC = () => {
+  const { isOfferUnlocked } = useFitness();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialSearch = searchParams.get('search') || '';
   const initialCategory = searchParams.get('category') || 'All';
   const initialBrand = searchParams.get('brand') || 'All';
+  const initialOfferFilter = searchParams.get('offer') || 'all';
 
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedBrand, setSelectedBrand] = useState(initialBrand);
+  const [offerFilter, setOfferFilter] = useState<string>(initialOfferFilter);
   const [minDiscount, setMinDiscount] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string>('featured');
 
@@ -24,9 +28,11 @@ export const ShopPage: React.FC = () => {
     const s = searchParams.get('search') || '';
     const c = searchParams.get('category') || 'All';
     const b = searchParams.get('brand') || 'All';
+    const o = searchParams.get('offer') || 'all';
     setSearchQuery(s);
     setSelectedCategory(c);
     setSelectedBrand(b);
+    setOfferFilter(o);
   }, [searchParams]);
 
   const filteredProducts = useMemo(() => {
@@ -58,6 +64,16 @@ export const ShopPage: React.FC = () => {
         return false;
       }
 
+      // 5. Fitness Offers filter (Section 31)
+      if (offerFilter === 'fitness_offers') {
+        if (!p.fitnessOffer || p.fitnessOffer.discountPercentage <= 0) return false;
+      } else if (offerFilter === 'streak_offers') {
+        const hasStreak = !!(p.fitnessOffer.streakRequiredDays || p.fitnessOffer.requirement.streakRequiredDays);
+        if (!hasStreak) return false;
+      } else if (offerFilter === 'unlocked_offers') {
+        if (!isOfferUnlocked(p.id)) return false;
+      }
+
       return true;
     }).sort((a, b) => {
       if (sortBy === 'price-low') {
@@ -75,12 +91,13 @@ export const ShopPage: React.FC = () => {
       // default: featured
       return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
     });
-  }, [searchQuery, selectedCategory, selectedBrand, minDiscount, sortBy]);
+  }, [searchQuery, selectedCategory, selectedBrand, minDiscount, sortBy, offerFilter, isOfferUnlocked]);
 
   const handleResetFilters = () => {
     setSearchQuery('');
     setSelectedCategory('All');
     setSelectedBrand('All');
+    setOfferFilter('all');
     setMinDiscount(0);
     setSortBy('featured');
     setSearchParams({});
@@ -153,6 +170,45 @@ export const ShopPage: React.FC = () => {
                 <option value="price-high">Price: High to Low</option>
                 <option value="rating">Top Rated</option>
               </select>
+            </div>
+          </div>
+
+          {/* Fitness Offers Filter (Prompt Section 31) */}
+          <div className="pt-2 border-t border-slate-100">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0">
+                Fitness Offers:
+              </span>
+              {[
+                { id: 'all', label: 'All Products', icon: null },
+                { id: 'fitness_offers', label: 'Fitness Offers', icon: Sparkles },
+                { id: 'streak_offers', label: 'Streak Offers', icon: Flame },
+                { id: 'unlocked_offers', label: 'Unlocked Offers', icon: CheckCircle2 },
+              ].map((tab) => {
+                const Icon = tab.icon;
+                const active = offerFilter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => {
+                      setOfferFilter(tab.id);
+                      setSearchParams((prev) => {
+                        if (tab.id !== 'all') prev.set('offer', tab.id);
+                        else prev.delete('offer');
+                        return prev;
+                      });
+                    }}
+                    className={`py-1.5 px-3 rounded-xl text-xs font-bold shrink-0 transition flex items-center gap-1.5 ${
+                      active
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200'
+                    }`}
+                  >
+                    {Icon && <Icon className={`w-3.5 h-3.5 ${active ? 'text-amber-300' : 'text-slate-400'}`} />}
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

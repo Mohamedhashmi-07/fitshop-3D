@@ -21,6 +21,7 @@ import { useWishlist } from '../context/WishlistContext';
 import { PriceDisplay } from '../components/common/PriceDisplay';
 import { DiscountBadge } from '../components/common/DiscountBadge';
 import { ActivityProgress } from '../components/common/ActivityProgress';
+import { StreakOfferSection } from '../components/fitness/StreakOfferSection';
 import { formatINR } from '../utils/pricing';
 
 export const ProductDetailPage: React.FC = () => {
@@ -192,95 +193,8 @@ export const ProductDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {/* FITNESS ACTIVITY & DISCOUNT UNLOCK MODULE (CRITICAL REQUIREMENT) */}
-            <div className="p-5 rounded-2xl border-2 border-emerald-500/20 bg-emerald-50/30 space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700">
-                    <Flame className="w-4 h-4 fill-emerald-600 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-                      Fitness Challenge Requirement
-                    </h3>
-                    <div className="text-xs text-slate-600 font-semibold">
-                      {req.description} · {product.fitnessOffer.discountPercentage}% OFF
-                    </div>
-                  </div>
-                </div>
-
-                {status === 'unlocked' ? (
-                  <span className="text-xs font-extrabold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-                    ✓ Unlocked
-                  </span>
-                ) : status === 'activity_completed' ? (
-                  <span className="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full animate-pulse">
-                    ✓ Completed
-                  </span>
-                ) : (
-                  <span className="text-xs font-semibold text-slate-600 bg-slate-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                    <Lock className="w-3 h-3" /> Locked
-                  </span>
-                )}
-              </div>
-
-              {/* Progress & Simulation Controls */}
-              <ActivityProgress
-                current={progress.current}
-                target={progress.target}
-                unit={req.unit}
-                stepIncrement={challengeDef?.stepIncrement || 1}
-                onSimulate={handleSimulate}
-                showSimulateButton={status !== 'unlocked' && !progress.isCompleted}
-              />
-
-              {/* 3-State Actions */}
-              <div className="pt-2">
-                {/* STATE 1: Locked */}
-                {status === 'locked' && (
-                  <div className="space-y-2">
-                    <p className="text-xs text-slate-600">
-                      Complete <span className="font-bold text-slate-900">{req.description}</span> to unlock {product.fitnessOffer.discountPercentage}% OFF. The price remains at {formatINR(product.originalPrice)} until unlocked.
-                    </p>
-                    <button
-                      onClick={handleSimulate}
-                      type="button"
-                      className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs rounded-xl border border-slate-300 shadow-sm flex items-center justify-center gap-1.5 transition"
-                    >
-                      <PlusCircle className="w-4 h-4 text-emerald-600" />
-                      <span>Simulate Activity (+{challengeDef?.stepIncrement || 1} {req.unit})</span>
-                    </button>
-                  </div>
-                )}
-
-                {/* STATE 2: Activity Completed */}
-                {status === 'activity_completed' && (
-                  <div className="space-y-2">
-                    <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 font-medium">
-                      🎉 <strong>Activity verified!</strong> Your {product.fitnessOffer.discountPercentage}% OFF is ready to unlock. Click below to recalculate the product price.
-                    </div>
-                    <button
-                      onClick={handleUnlock}
-                      type="button"
-                      className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition animate-bounce"
-                    >
-                      <Sparkles className="w-4 h-4 text-amber-300" />
-                      <span>Unlock {product.fitnessOffer.discountPercentage}% OFF Offer</span>
-                    </button>
-                  </div>
-                )}
-
-                {/* STATE 3: Unlocked */}
-                {status === 'unlocked' && (
-                  <div className="p-3 bg-emerald-100/70 rounded-xl border border-emerald-300 text-xs text-emerald-900 flex items-center gap-2 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
-                    <span>
-                      ✓ {product.fitnessOffer.discountPercentage}% discount is permanently unlocked for your account. You save {formatINR(product.originalPrice * product.fitnessOffer.discountPercentage / 100)}!
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
+            {/* FITNESS ACTIVITY & STREAK CHALLENGE MODULE */}
+            <StreakOfferSection product={product} />
 
             {/* Quantity and Primary Action */}
             <div className="flex items-center gap-4 pt-2">

@@ -2,6 +2,17 @@ import { Brand } from '../types';
 
 export const brands: Brand[] = [
   {
+    id: 'nike',
+    name: 'Nike',
+    tagline: 'Just Do It — Benchmark Athletic Footwear & Apparel',
+    logo: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=160&q=80',
+    productCount: 4,
+    verified: true,
+    featured: true,
+    category: 'Footwear',
+    description: 'Iconic performance footwear with industry-defining Air units, React cushioning, and elite athlete development.',
+  },
+  {
     id: 'stepz-footwear',
     name: 'Stepz Footwear',
     tagline: 'Engineered for Elite Marathoners and Daily Striders',

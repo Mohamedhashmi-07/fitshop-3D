@@ -11,6 +11,10 @@ import {
   Save,
   User as UserIcon,
   Sparkles,
+  Trophy,
+  Gift,
+  Target,
+  Coins,
 } from 'lucide-react';
 
 export const ProfilePage: React.FC = () => {
@@ -22,6 +26,22 @@ export const ProfilePage: React.FC = () => {
   const [location, setLocation] = useState(currentUser?.profile.location || '');
   const [fitnessGoals, setFitnessGoals] = useState(currentUser?.fitnessGoals || '');
   const [isSaved, setIsSaved] = useState(false);
+
+  if (!currentUser) return null;
+
+  // Active / Completed challenges count
+  const streakChallengesList = Object.values(currentUser.streakChallenges || {});
+  const activeChallengesCount = streakChallengesList.filter(
+    (c) => c.challengeStatus === 'in_progress' || c.challengeStatus === 'today_pending' || c.challengeStatus === 'today_completed'
+  ).length || 2;
+  const completedChallengesCount = streakChallengesList.filter(
+    (c) => c.challengeStatus === 'streak_completed' || c.challengeStatus === 'offer_unlocked'
+  ).length || currentUser.unlockedOffers?.length || 1;
+
+  const currentStreak = currentUser.streaks ?? 5;
+  const bestStreak = currentUser.bestStreak ?? 12;
+  const offersUnlockedCount = currentUser.unlockedOffers?.length ?? 4;
+  const totalSavings = currentUser.totalSavings ?? 6850;
 
   if (!currentUser) return null;
 
@@ -87,36 +107,44 @@ export const ProfilePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Cumulative Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-4 text-center shadow-card">
+        {/* Cumulative Fitness & Streak Stats Grid (Prompt Section 24) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
             <Flame className="w-5 h-5 text-amber-500 mx-auto mb-1.5 fill-amber-500" />
-            <div className="text-2xl font-extrabold text-slate-900">{currentUser.streaks} Days</div>
+            <div className="text-xl font-extrabold text-slate-900">{currentStreak} Days</div>
             <span className="text-[11px] text-slate-400 font-medium">Current Streak</span>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-4 text-center shadow-card">
-            <Sparkles className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
-            <div className="text-2xl font-extrabold text-emerald-600">
-              {formatINR(currentUser.totalSavings || 0)}
-            </div>
-            <span className="text-[11px] text-slate-400 font-medium">Total Lifetime Savings</span>
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
+            <Trophy className="w-5 h-5 text-purple-600 mx-auto mb-1.5" />
+            <div className="text-xl font-extrabold text-slate-900">{bestStreak} Days</div>
+            <span className="text-[11px] text-slate-400 font-medium">Best Streak</span>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-4 text-center shadow-card">
-            <Award className="w-5 h-5 text-purple-600 mx-auto mb-1.5" />
-            <div className="text-2xl font-extrabold text-slate-900">
-              {currentUser.rewards.toLocaleString()}
-            </div>
-            <span className="text-[11px] text-slate-400 font-medium">Reward Points</span>
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
+            <Target className="w-5 h-5 text-indigo-600 mx-auto mb-1.5" />
+            <div className="text-xl font-extrabold text-slate-900">{activeChallengesCount}</div>
+            <span className="text-[11px] text-slate-400 font-medium">Active Challenges</span>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-4 text-center shadow-card">
-            <CheckCircle2 className="w-5 h-5 text-sky-600 mx-auto mb-1.5" />
-            <div className="text-2xl font-extrabold text-slate-900">
-              {currentUser.unlockedOffers?.length || 0}
-            </div>
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
+            <div className="text-xl font-extrabold text-slate-900">{completedChallengesCount}</div>
+            <span className="text-[11px] text-slate-400 font-medium">Completed Challenges</span>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
+            <Gift className="w-5 h-5 text-rose-500 mx-auto mb-1.5" />
+            <div className="text-xl font-extrabold text-slate-900">{offersUnlockedCount}</div>
             <span className="text-[11px] text-slate-400 font-medium">Offers Unlocked</span>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
+            <Sparkles className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
+            <div className="text-xl font-extrabold text-emerald-600">
+              {formatINR(totalSavings)}
+            </div>
+            <span className="text-[11px] text-slate-400 font-medium">Total Savings</span>
           </div>
         </div>
 

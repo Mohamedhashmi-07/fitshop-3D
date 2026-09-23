@@ -1,5 +1,14 @@
 export type OfferStatus = 'locked' | 'activity_completed' | 'unlocked';
 
+export type StreakChallengeStatus =
+  | 'not_started'
+  | 'today_pending'
+  | 'today_completed'
+  | 'in_progress'
+  | 'streak_completed'
+  | 'offer_unlocked'
+  | 'streak_reset';
+
 export type FitnessActivityType = 'running' | 'walking' | 'cycling' | 'workout' | 'gym';
 
 export interface FitnessRequirement {
@@ -8,11 +17,37 @@ export interface FitnessRequirement {
   unit: string; // 'KM', 'Steps', 'Mins'
   description: string;
   challengeId: string;
+  streakRequiredDays?: number;
+  dailyTarget?: number;
 }
 
 export interface FitnessOffer {
   discountPercentage: number;
   requirement: FitnessRequirement;
+  streakRequiredDays?: number;
+  dailyTarget?: number;
+  targetUnit?: string;
+}
+
+export interface ProductStreakChallenge {
+  productId: string;
+  originalPrice: number;
+  discountPercentage: number;
+  activityType: FitnessActivityType;
+  dailyTarget: number;
+  targetUnit: string;
+  streakRequiredDays: number;
+  currentStreak: number;
+  completedDays: number;
+  challengeStatus: StreakChallengeStatus;
+  lastCompletedDate?: string;
+  todayCompleted: boolean;
+  todayProgress: number;
+  offerUnlocked: boolean;
+  offerExpiresAt?: string;
+  challengeStartDate?: string;
+  previousStreak?: number;
+  unlockedDate?: string;
 }
 
 export interface Product {
@@ -46,6 +81,8 @@ export interface Challenge {
   discountPercentage: number;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   durationDays?: number;
+  streakRequiredDays?: number;
+  dailyTarget?: number;
 }
 
 export interface UserChallengeProgress {
@@ -118,6 +155,8 @@ export interface User {
   orders: Order[];
   challenges: Record<string, UserChallengeProgress>;
   streaks: number;
+  bestStreak?: number;
+  streakChallenges?: Record<string, ProductStreakChallenge>;
   rewards: number;
   totalSteps: number;
   totalDistanceKm: number;
