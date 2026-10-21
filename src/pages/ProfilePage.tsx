@@ -16,6 +16,7 @@ import {
   Target,
   Coins,
 } from 'lucide-react';
+import { TiltCard } from '../components/3d/TiltCard';
 
 export const ProfilePage: React.FC = () => {
   const { currentUser, updateUser } = useAuth();
@@ -78,16 +79,16 @@ export const ProfilePage: React.FC = () => {
         </div>
 
         {/* Overview Banner */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card flex flex-col sm:flex-row items-center sm:items-start gap-6">
+        <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card flex flex-col sm:flex-row items-center sm:items-start gap-6">
           <img
             src={currentUser.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80'}
             alt={currentUser.name}
-            className="w-24 h-24 rounded-full object-cover border-4 border-emerald-50 shadow-md"
+            className="w-24 h-24 rounded-full object-cover border-4 border-emerald-50 shadow-3d-sm"
           />
           <div className="flex-1 text-center sm:text-left space-y-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <h2 className="text-2xl font-extrabold text-slate-900">{currentUser.name}</h2>
-              <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 self-center sm:self-auto">
+              <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-3d-sm self-center sm:self-auto">
                 Verified FitShop Athlete
               </span>
             </div>
@@ -98,7 +99,7 @@ export const ProfilePage: React.FC = () => {
               {currentUser.activityPreferences?.map((act) => (
                 <span
                   key={act}
-                  className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full"
+                  className="text-[11px] font-semibold text-slate-600 bg-slate-100/90 px-2.5 py-0.5 rounded-full"
                 >
                   {act}
                 </span>
@@ -109,47 +110,59 @@ export const ProfilePage: React.FC = () => {
 
         {/* Cumulative Fitness & Streak Stats Grid (Prompt Section 24) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
-            <Flame className="w-5 h-5 text-amber-500 mx-auto mb-1.5 fill-amber-500" />
-            <div className="text-xl font-extrabold text-slate-900">{currentStreak} Days</div>
-            <span className="text-[11px] text-slate-400 font-medium">Current Streak</span>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
-            <Trophy className="w-5 h-5 text-purple-600 mx-auto mb-1.5" />
-            <div className="text-xl font-extrabold text-slate-900">{bestStreak} Days</div>
-            <span className="text-[11px] text-slate-400 font-medium">Best Streak</span>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
-            <Target className="w-5 h-5 text-indigo-600 mx-auto mb-1.5" />
-            <div className="text-xl font-extrabold text-slate-900">{activeChallengesCount}</div>
-            <span className="text-[11px] text-slate-400 font-medium">Active Challenges</span>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
-            <div className="text-xl font-extrabold text-slate-900">{completedChallengesCount}</div>
-            <span className="text-[11px] text-slate-400 font-medium">Completed Challenges</span>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
-            <Gift className="w-5 h-5 text-rose-500 mx-auto mb-1.5" />
-            <div className="text-xl font-extrabold text-slate-900">{offersUnlockedCount}</div>
-            <span className="text-[11px] text-slate-400 font-medium">Offers Unlocked</span>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-3.5 text-center shadow-card">
-            <Sparkles className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
-            <div className="text-xl font-extrabold text-emerald-600">
-              {formatINR(totalSavings)}
+          <TiltCard maxTilt={10} scale={1.03}>
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-3.5 text-center shadow-3d-card h-full">
+              <Flame className="w-5 h-5 text-amber-500 mx-auto mb-1.5 fill-amber-500" />
+              <div className="text-xl font-extrabold text-slate-900">{currentStreak} Days</div>
+              <span className="text-[11px] text-slate-400 font-medium">Current Streak</span>
             </div>
-            <span className="text-[11px] text-slate-400 font-medium">Total Savings</span>
-          </div>
+          </TiltCard>
+
+          <TiltCard maxTilt={10} scale={1.03}>
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-3.5 text-center shadow-3d-card h-full">
+              <Trophy className="w-5 h-5 text-purple-600 mx-auto mb-1.5" />
+              <div className="text-xl font-extrabold text-slate-900">{bestStreak} Days</div>
+              <span className="text-[11px] text-slate-400 font-medium">Best Streak</span>
+            </div>
+          </TiltCard>
+
+          <TiltCard maxTilt={10} scale={1.03}>
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-3.5 text-center shadow-3d-card h-full">
+              <Target className="w-5 h-5 text-indigo-600 mx-auto mb-1.5" />
+              <div className="text-xl font-extrabold text-slate-900">{activeChallengesCount}</div>
+              <span className="text-[11px] text-slate-400 font-medium">Active Challenges</span>
+            </div>
+          </TiltCard>
+
+          <TiltCard maxTilt={10} scale={1.03}>
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-3.5 text-center shadow-3d-card h-full">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
+              <div className="text-xl font-extrabold text-slate-900">{completedChallengesCount}</div>
+              <span className="text-[11px] text-slate-400 font-medium">Completed Challenges</span>
+            </div>
+          </TiltCard>
+
+          <TiltCard maxTilt={10} scale={1.03}>
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-3.5 text-center shadow-3d-card h-full">
+              <Gift className="w-5 h-5 text-rose-500 mx-auto mb-1.5" />
+              <div className="text-xl font-extrabold text-slate-900">{offersUnlockedCount}</div>
+              <span className="text-[11px] text-slate-400 font-medium">Offers Unlocked</span>
+            </div>
+          </TiltCard>
+
+          <TiltCard maxTilt={10} scale={1.03}>
+            <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-3.5 text-center shadow-3d-card h-full">
+              <Sparkles className="w-5 h-5 text-emerald-600 mx-auto mb-1.5" />
+              <div className="text-xl font-extrabold text-emerald-600">
+                {formatINR(totalSavings)}
+              </div>
+              <span className="text-[11px] text-slate-400 font-medium">Total Savings</span>
+            </div>
+          </TiltCard>
         </div>
 
         {/* Profile Edit Form */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card space-y-6">
+        <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card space-y-6">
           <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3">
             Edit Profile Information
           </h3>
@@ -165,7 +178,7 @@ export const ProfilePage: React.FC = () => {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none"
+                  className="w-full px-3.5 py-2 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -177,7 +190,7 @@ export const ProfilePage: React.FC = () => {
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none"
+                  className="w-full px-3.5 py-2 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -189,7 +202,7 @@ export const ProfilePage: React.FC = () => {
                   type="text"
                   value={fitnessGoals}
                   onChange={(e) => setFitnessGoals(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none"
+                  className="w-full px-3.5 py-2 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                 />
               </div>
 
@@ -201,7 +214,7 @@ export const ProfilePage: React.FC = () => {
                   rows={3}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none"
+                  className="w-full px-3.5 py-2 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                 />
               </div>
             </div>
@@ -209,7 +222,7 @@ export const ProfilePage: React.FC = () => {
             <div className="pt-3 border-t border-slate-100 flex items-center justify-end">
               <button
                 type="submit"
-                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-1.5 transition"
+                className="px-6 py-2.5 btn-3d-emerald text-white font-bold text-xs rounded-xl flex items-center gap-1.5"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>{isSaved ? 'Saved!' : 'Save Changes'}</span>

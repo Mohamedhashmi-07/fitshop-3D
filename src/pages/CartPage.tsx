@@ -78,8 +78,8 @@ export const CartPage: React.FC = () => {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Items List */}
-          <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card space-y-2">
+          {/* Items List with 3D Card Styling */}
+          <div className="lg:col-span-8 bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card space-y-2">
             <div className="divide-y divide-slate-100">
               {items.map((item) => (
                 <CartItemRow key={item.productId} item={item} />
@@ -97,9 +97,9 @@ export const CartPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Order Summary Box */}
+          {/* Order Summary Box with 3D Card Styling */}
           <div className="lg:col-span-4">
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card space-y-5 sticky top-24">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card space-y-5 sticky top-24">
               <h2 className="text-base font-extrabold text-slate-900">Order Summary</h2>
 
               <div className="space-y-3 text-sm text-slate-600">
@@ -113,7 +113,7 @@ export const CartPage: React.FC = () => {
                 {totals.totalFitnessDiscount > 0 ? (
                   <div className="flex justify-between text-emerald-600 font-bold">
                     <span className="flex items-center gap-1">
-                      <Sparkles className="w-3.5 h-3.5" /> Fitness Activity Discount
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-spin" style={{ animationDuration: '6s' }} /> Fitness Activity Discount
                     </span>
                     <span>-{formatINR(totals.totalFitnessDiscount)}</span>
                   </div>
@@ -145,7 +145,7 @@ export const CartPage: React.FC = () => {
 
               <button
                 onClick={() => navigate('/checkout')}
-                className="w-full py-4 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center justify-center gap-2 transition"
+                className="w-full py-4 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm rounded-2xl shadow-3d-emerald btn-3d-emerald flex items-center justify-center gap-2"
               >
                 <span>Proceed to Checkout</span>
                 <ArrowRight className="w-4 h-4" />

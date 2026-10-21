@@ -1,49 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Flame, CheckCircle2, Sparkles, ShieldCheck, Zap } from 'lucide-react';
-import { formatINR } from '../../utils/pricing';
+import { ArrowRight, Flame, CheckCircle2, Sparkles, ShieldCheck, Zap, Activity } from 'lucide-react';
+import { TiltCard } from '../3d/TiltCard';
+import { Hero3DCanvas } from '../3d/Hero3DCanvas';
+import { Scene3DBackground } from '../3d/Scene3DBackground';
+import { Floating3DBadge } from '../3d/Floating3DBadge';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-slate-100">
-      {/* Subtle light ambient glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50/70 to-white pt-10 pb-18 lg:pt-16 lg:pb-28 border-b border-slate-100">
+      {/* 3D Perspective Grid Background */}
+      <div className="absolute inset-0 bg-perspective-grid pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Floating 3D Ambient Dust Field */}
+      <Scene3DBackground particleCount={24} />
+
+      {/* Subtle light ambient glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-gradient-to-tr from-emerald-200/30 via-teal-100/25 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Headlines & CTAs */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 backdrop-blur-sm text-emerald-800 text-xs font-bold border border-emerald-200/80 shadow-3d-sm transition-transform hover:scale-105">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-spin" style={{ animationDuration: '6s' }} />
               <span>India's 1st Fitness-Powered Commerce Engine</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
+            {/* Main Headline with 3D Depth */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] drop-shadow-xs">
               Move More. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-700">
                 Pay Less.
               </span>
             </h1>
 
             {/* Subheading */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
               Complete verified fitness activities, unlock exclusive product discounts, and shop from emerging & established brands you discover.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
+            {/* CTAs with 3D Tactile Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
               <Link
                 to="/shop"
-                className="w-full sm:w-auto px-7 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center justify-center gap-2 transition transform active:scale-98"
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl btn-3d-emerald flex items-center justify-center gap-2.5 text-sm"
               >
                 <span>Start Shopping</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/fitness-rewards"
-                className="w-full sm:w-auto px-7 py-3.5 bg-white hover:bg-slate-50 text-slate-800 font-bold rounded-2xl border border-slate-200 shadow-sm flex items-center justify-center gap-2 transition"
+                className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 font-bold rounded-2xl border border-slate-200 btn-3d-white flex items-center justify-center gap-2.5 text-sm"
               >
                 <Flame className="w-4 h-4 text-emerald-600 fill-emerald-600" />
                 <span>Explore Fitness Rewards</span>
@@ -51,50 +60,87 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Micro Trust Stats */}
-            <div className="pt-6 border-t border-slate-200/60 flex items-center justify-center lg:justify-start gap-8 text-xs font-semibold text-slate-500">
-              <div className="flex items-center gap-2">
+            <div className="pt-6 border-t border-slate-200/60 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-8 text-xs font-semibold text-slate-500">
+              <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Verified Activities</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
                 <Zap className="w-4 h-4 text-emerald-600" />
                 <span>Zero Backend Needed</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-white/70 border border-slate-200/60 shadow-xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Instant Dynamic Prices</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Hero Interactive Preview Card */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-md">
-              {/* Decorative accent card backdrop */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-3xl transform rotate-2 scale-102 opacity-20 blur-sm" />
+          {/* Right Column: Hero Interactive 3D Preview Card & Visual Composition */}
+          <div className="lg:col-span-5 flex justify-center relative">
+            {/* Interactive 3D Canvas Centerpiece (Concentric Orbiting Rings + Node Sphere) */}
+            <div className="absolute -inset-10 flex items-center justify-center pointer-events-none opacity-85">
+              <Hero3DCanvas className="w-full h-full max-w-[540px] max-h-[540px]" />
+            </div>
 
-              {/* Main Showcase Card */}
-              <div className="relative bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 space-y-5">
-                {/* Header row */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            {/* Floating 3D Micro-Badges popping out in space */}
+            <div className="hidden sm:block absolute -top-5 -right-3 z-30 pointer-events-none">
+              <Floating3DBadge
+                icon={<Flame className="w-4 h-4 fill-white" />}
+                label="40% OFF"
+                sublabel="Unlocked via 5 KM"
+                delay="0s"
+                depth={36}
+              />
+            </div>
+
+            <div className="hidden sm:block absolute -bottom-5 -left-4 z-30 pointer-events-none">
+              <Floating3DBadge
+                icon={<Activity className="w-4 h-4" />}
+                label="GPS Verified"
+                sublabel="Real-time Pace Log"
+                delay="2.5s"
+                depth={36}
+              />
+            </div>
+
+            {/* Main 3D Interactive Tilt Showcase Card */}
+            <div className="relative w-full max-w-md perspective-1200">
+              {/* Decorative accent card backdrop with 3D depth tilt */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/30 to-teal-400/30 rounded-3xl transform rotate-2 scale-102 blur-sm pointer-events-none" />
+
+              <TiltCard
+                maxTilt={9}
+                scale={1.02}
+                perspective={1200}
+                glare={true}
+                className="relative bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200/90 shadow-3d-card p-6 space-y-5"
+              >
+                {/* Header row with 3D elevation */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 translate-z-12">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                       Live Offer Demonstration
                     </span>
                   </div>
-                  <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-xs">
                     40% OFF
                   </span>
                 </div>
 
-                {/* Combined Product Preview */}
-                <div className="flex items-center gap-4">
-                  <img
-                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80"
-                    alt="Stepz Phantom Marathon Elite"
-                    className="w-24 h-24 object-cover rounded-2xl border border-slate-100 shadow-sm"
-                  />
+                {/* Combined Product Preview with Parallax Image */}
+                <div className="flex items-center gap-4 translate-z-24">
+                  <div className="relative group/img shrink-0">
+                    <img
+                      src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80"
+                      alt="Stepz Phantom Marathon Elite"
+                      className="w-24 h-24 object-cover rounded-2xl border border-slate-100 shadow-md group-hover/img:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
+                      3D
+                    </div>
+                  </div>
                   <div>
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       Stepz Footwear
@@ -108,31 +154,31 @@ export const HeroSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Fitness Activity Requirement & Completed Status */}
-                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-3">
+                {/* Fitness Activity Requirement & Completed Status with 3D Elevation */}
+                <div className="bg-slate-50/90 backdrop-blur-xs rounded-2xl p-4 border border-slate-200/80 space-y-3 translate-z-18 shadow-inner">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-100 to-teal-50 flex items-center justify-center text-emerald-700 shadow-xs">
                         <Flame className="w-4 h-4 fill-emerald-600 text-emerald-600" />
                       </div>
                       <div>
                         <div className="text-xs font-bold text-slate-900">5 KM RUN CHALLENGE</div>
-                        <div className="text-[11px] text-slate-500">Outdoor GPS Verified</div>
+                        <div className="text-[11px] text-slate-500 font-medium">Outdoor GPS Verified</div>
                       </div>
                     </div>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-100/70 px-2.5 py-1 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-100/80 px-2.5 py-1 rounded-full shadow-xs">
                       <CheckCircle2 className="w-3.5 h-3.5" /> Completed
                     </span>
                   </div>
 
-                  {/* Progress bar (100%) */}
-                  <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                    <div className="bg-emerald-500 h-full rounded-full w-full" />
+                  {/* 3D Progress Bar with glowing pulse */}
+                  <div className="w-full bg-slate-200/80 h-2.5 rounded-full overflow-hidden p-0.5">
+                    <div className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full w-full shadow-glow-green" />
                   </div>
                 </div>
 
-                {/* Price Transformation Showcase */}
-                <div className="bg-emerald-50/60 rounded-2xl p-4 border border-emerald-200/80 flex items-center justify-between">
+                {/* Price Transformation Showcase with 3D Pop */}
+                <div className="bg-gradient-to-r from-emerald-50/80 to-teal-50/60 rounded-2xl p-4 border border-emerald-200/90 flex items-center justify-between translate-z-24 shadow-xs">
                   <div>
                     <span className="text-[11px] font-semibold text-slate-500 block">
                       Original Price
@@ -142,27 +188,29 @@ export const HeroSection: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="text-emerald-500 font-bold text-lg">↓</div>
+                  <div className="text-emerald-500 font-black text-xl animate-bounce">↓</div>
 
                   <div className="text-right">
                     <span className="text-[11px] font-bold text-emerald-800 block">
                       Discounted Price
                     </span>
-                    <span className="text-2xl font-extrabold text-emerald-700">
+                    <span className="text-2xl font-extrabold text-emerald-700 tracking-tight">
                       ₹6,599.40
                     </span>
                   </div>
                 </div>
 
-                {/* Action button */}
-                <Link
-                  to="/product/stepz-phantom-marathon-elite"
-                  className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition"
-                >
-                  <span>Experience Dynamic Price Unlock</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+                {/* Action button with 3D Press Effect */}
+                <div className="translate-z-32 pt-1">
+                  <Link
+                    to="/product/stepz-phantom-marathon-elite"
+                    className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-md btn-3d-dark flex items-center justify-center gap-2"
+                  >
+                    <span>Experience Dynamic Price Unlock</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </TiltCard>
             </div>
           </div>
         </div>
@@ -170,3 +218,4 @@ export const HeroSection: React.FC = () => {
     </section>
   );
 };
+

@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { Zap, LogIn, ArrowRight, UserCheck, ShieldCheck } from 'lucide-react';
 
+import { Scene3DBackground } from '../components/3d/Scene3DBackground';
+
 export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,12 +42,16 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50 py-12 px-4 flex flex-col justify-center items-center">
-      <div className="max-w-md w-full space-y-6">
+    <div className="relative min-h-screen bg-slate-50/80 py-12 px-4 flex flex-col justify-center items-center overflow-hidden">
+      {/* 3D ambient particle background */}
+      <Scene3DBackground particleCount={16} interactive={false} />
+      <div className="absolute inset-0 bg-perspective-grid opacity-15 pointer-events-none" />
+
+      <div className="relative z-10 max-w-md w-full space-y-6">
         {/* Brand Header */}
         <div className="text-center">
-          <Link to="/" className="inline-flex items-center gap-2 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-sm">
+          <Link to="/" className="inline-flex items-center gap-2 mb-3 group">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-3d-emerald transform group-hover:scale-105 group-hover:rotate-3 transition duration-300">
               <Zap className="w-5 h-5 fill-white" />
             </div>
             <span className="text-2xl font-extrabold tracking-tight text-slate-900">
@@ -61,7 +67,7 @@ export const LoginPage: React.FC = () => {
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-7 shadow-card space-y-5">
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200/90 p-7 shadow-3d-card space-y-5">
           {error && (
             <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700">
               {error}
@@ -79,7 +85,7 @@ export const LoginPage: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@fitshop.com"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 focus:shadow-sm outline-none transition"
               />
             </div>
 
@@ -96,13 +102,13 @@ export const LoginPage: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 focus:shadow-sm outline-none transition"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-1.5 transition"
+              className="w-full py-3 btn-3d-emerald text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5"
             >
               <LogIn className="w-4 h-4" />
               <span>Login</span>
@@ -119,7 +125,7 @@ export const LoginPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSelectDemoUser('mohamed@fitshop.com', '123456')}
-                className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-center transition group"
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 hover:shadow-3d-sm text-center transition group transform hover:-translate-y-0.5"
               >
                 <span className="font-bold text-xs text-slate-800 group-hover:text-emerald-700 block">
                   Mohamed
@@ -130,7 +136,7 @@ export const LoginPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSelectDemoUser('rahul@fitshop.com', '123456')}
-                className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-center transition group"
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 hover:shadow-3d-sm text-center transition group transform hover:-translate-y-0.5"
               >
                 <span className="font-bold text-xs text-slate-800 group-hover:text-emerald-700 block">
                   Rahul
@@ -141,7 +147,7 @@ export const LoginPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleSelectDemoUser('priya@fitshop.com', '123456')}
-                className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-center transition group"
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 hover:shadow-3d-sm text-center transition group transform hover:-translate-y-0.5"
               >
                 <span className="font-bold text-xs text-slate-800 group-hover:text-emerald-700 block">
                   Priya

@@ -34,7 +34,7 @@ export const OrdersPage: React.FC = () => {
             {orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card hover:shadow-card-hover transition space-y-4"
+                className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card hover:shadow-3d-card-hover transition duration-300 transform hover:-translate-y-0.5 space-y-4"
               >
                 {/* Header row */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">

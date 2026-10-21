@@ -4,6 +4,7 @@ import { Lock, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Product } from '../../types';
 import { useFitness } from '../../context/FitnessContext';
 import { PriceDisplay } from '../common/PriceDisplay';
+import { TiltCard } from '../3d/TiltCard';
 
 export const OfferCard: React.FC<{ product: Product }> = ({ product }) => {
   const { getOfferStatus, isOfferUnlocked, unlockOffer } = useFitness();
@@ -14,13 +15,25 @@ export const OfferCard: React.FC<{ product: Product }> = ({ product }) => {
   const req = product.fitnessOffer.requirement;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-emerald-300 shadow-card hover:shadow-card-hover transition-all p-4 flex gap-4 items-center">
-      <img
-        src={product.images[0]}
-        alt={product.name}
-        className="w-24 h-24 rounded-xl object-cover border border-slate-100 shrink-0"
-      />
-      <div className="flex-1 min-w-0">
+    <TiltCard
+      maxTilt={6}
+      scale={1.02}
+      perspective={1000}
+      glare={true}
+      className="group bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200/90 hover:border-emerald-300 shadow-3d-card hover:shadow-3d-card-hover transition-all duration-300 p-4 flex gap-4 items-center overflow-hidden"
+    >
+      <div className="relative shrink-0 translate-z-18">
+        <img
+          src={product.images[0]}
+          alt={product.name}
+          className="w-24 h-24 rounded-xl object-cover border border-slate-100 group-hover:scale-105 transition-transform duration-300 shadow-sm"
+        />
+        <div className="absolute -top-1.5 -left-1.5 bg-slate-900 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md shadow-xs border border-slate-700/50">
+          {product.fitnessOffer.discountPercentage}%
+        </div>
+      </div>
+
+      <div className="flex-1 min-w-0 translate-z-12">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             {product.brand}
@@ -64,35 +77,38 @@ export const OfferCard: React.FC<{ product: Product }> = ({ product }) => {
             )}
           </div>
 
-          {status === 'locked' && (
-            <button
-              onClick={() => navigate(`/fitness-rewards?challenge=${req.challengeId}`)}
-              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 hover:underline"
-            >
-              <span>View Challenge</span>
-              <ArrowRight className="w-3 h-3" />
-            </button>
-          )}
+          <div className="translate-z-24 shrink-0">
+            {status === 'locked' && (
+              <button
+                onClick={() => navigate(`/fitness-rewards?challenge=${req.challengeId}`)}
+                className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 hover:underline"
+              >
+                <span>View Challenge</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            )}
 
-          {status === 'activity_completed' && (
-            <button
-              onClick={() => unlockOffer(product.id, req.challengeId)}
-              className="px-2.5 py-1 text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-lg shadow-sm transition"
-            >
-              Unlock Now
-            </button>
-          )}
+            {status === 'activity_completed' && (
+              <button
+                onClick={() => unlockOffer(product.id, req.challengeId)}
+                className="px-2.5 py-1 text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-lg shadow-sm transition animate-bounce"
+              >
+                Unlock Now
+              </button>
+            )}
 
-          {status === 'unlocked' && (
-            <Link
-              to={`/product/${product.id}`}
-              className="text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline"
-            >
-              Shop Offer
-            </Link>
-          )}
+            {status === 'unlocked' && (
+              <Link
+                to={`/product/${product.id}`}
+                className="text-xs font-bold text-emerald-600 hover:text-emerald-700 hover:underline"
+              >
+                Shop Offer
+              </Link>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </TiltCard>
   );
 };
+

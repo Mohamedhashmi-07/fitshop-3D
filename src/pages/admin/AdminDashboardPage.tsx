@@ -4,6 +4,7 @@ import { products } from '../../data/products';
 import { brands } from '../../data/brands';
 import { challenges } from '../../data/challenges';
 import { formatINR } from '../../utils/pricing';
+import { TiltCard } from '../../components/3d/TiltCard';
 import {
   ShieldCheck,
   Users,
@@ -30,9 +31,9 @@ export const AdminDashboardPage: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Top Banner */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 flex items-center gap-1.5 w-fit">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200 flex items-center gap-1.5 w-fit shadow-3d-sm">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
             Superadmin Console
           </span>
@@ -52,55 +53,63 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* Platform Summary KPI Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-card">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-400">Registered Users</span>
-            <Users className="w-5 h-5 text-emerald-600" />
+        <TiltCard maxTilt={8} scale={1.03}>
+          <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-5 shadow-3d-card h-full">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-slate-400">Registered Users</span>
+              <Users className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div className="text-2xl font-extrabold text-slate-900">{userList.length}</div>
+            <span className="text-[11px] font-semibold text-emerald-600 mt-1 block">
+              Independent Isolated Accounts
+            </span>
           </div>
-          <div className="text-2xl font-extrabold text-slate-900">{userList.length}</div>
-          <span className="text-[11px] font-semibold text-emerald-600 mt-1 block">
-            Independent Isolated Accounts
-          </span>
-        </div>
+        </TiltCard>
 
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-card">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-400">Brand Partners</span>
-            <Store className="w-5 h-5 text-sky-600" />
+        <TiltCard maxTilt={8} scale={1.03}>
+          <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-5 shadow-3d-card h-full">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-slate-400">Brand Partners</span>
+              <Store className="w-5 h-5 text-sky-600" />
+            </div>
+            <div className="text-2xl font-extrabold text-slate-900">{brands.length}</div>
+            <span className="text-[11px] font-semibold text-slate-500 mt-1 block">
+              Stepz, Jaihind, FitLife & more
+            </span>
           </div>
-          <div className="text-2xl font-extrabold text-slate-900">{brands.length}</div>
-          <span className="text-[11px] font-semibold text-slate-500 mt-1 block">
-            Stepz, Jaihind, FitLife & more
-          </span>
-        </div>
+        </TiltCard>
 
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-card">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-400">Total Products</span>
-            <Package className="w-5 h-5 text-amber-500" />
+        <TiltCard maxTilt={8} scale={1.03}>
+          <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-5 shadow-3d-card h-full">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-slate-400">Total Products</span>
+              <Package className="w-5 h-5 text-amber-500" />
+            </div>
+            <div className="text-2xl font-extrabold text-slate-900">{products.length}</div>
+            <span className="text-[11px] font-semibold text-emerald-600 mt-1 block">
+              Across 10 Categories
+            </span>
           </div>
-          <div className="text-2xl font-extrabold text-slate-900">{products.length}</div>
-          <span className="text-[11px] font-semibold text-emerald-600 mt-1 block">
-            Across 10 Categories
-          </span>
-        </div>
+        </TiltCard>
 
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-card">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-slate-400">Cumulative User Savings</span>
-            <DollarSign className="w-5 h-5 text-purple-600" />
+        <TiltCard maxTilt={8} scale={1.03}>
+          <div className="bg-white/95 rounded-2xl border border-slate-200/90 p-5 shadow-3d-card h-full">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-slate-400">Cumulative User Savings</span>
+              <DollarSign className="w-5 h-5 text-purple-600" />
+            </div>
+            <div className="text-2xl font-extrabold text-emerald-700">
+              {formatINR(totalCumulativeSavings || 4399.60)}
+            </div>
+            <span className="text-[11px] font-semibold text-slate-500 mt-1 block">
+              Via verified fitness discounts
+            </span>
           </div>
-          <div className="text-2xl font-extrabold text-emerald-700">
-            {formatINR(totalCumulativeSavings || 4399.60)}
-          </div>
-          <span className="text-[11px] font-semibold text-slate-500 mt-1 block">
-            Via verified fitness discounts
-          </span>
-        </div>
+        </TiltCard>
       </div>
 
       {/* User Accounts Overview (Multi-Account Proof) */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-card overflow-hidden">
+      <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 shadow-3d-card overflow-hidden">
         <div className="p-6 border-b border-slate-100 flex items-center justify-between">
           <div>
             <h2 className="text-sm font-extrabold text-slate-900">

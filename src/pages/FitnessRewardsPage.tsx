@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useFitness } from '../context/FitnessContext';
 import { challenges } from '../data/challenges';
 import { FitnessChallengeCard } from '../components/fitness/FitnessChallengeCard';
+import { TiltCard } from '../components/3d/TiltCard';
 import {
   Flame,
   Footprints,
@@ -112,102 +113,132 @@ export const FitnessRewardsPage: React.FC = () => {
           </div>
         )}
 
-        {/* 5 Stat Cards (Prompt Section 19) */}
+        {/* 5 Stat Cards with 3D Depth */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {/* 1. Current Streak */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-card hover:shadow-card-hover transition">
-            <div className="flex items-center justify-between text-slate-500 mb-2">
+          <TiltCard
+            maxTilt={6}
+            scale={1.03}
+            perspective={800}
+            glare={true}
+            className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-5 shadow-3d-card hover:shadow-3d-card-hover transition-all overflow-hidden"
+          >
+            <div className="flex items-center justify-between text-slate-500 mb-2 translate-z-18">
               <span className="text-[11px] font-bold uppercase tracking-wider">Current Streak</span>
-              <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500">
-                <Flame className="w-4 h-4 fill-amber-500" />
+              <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500 shadow-3d-sm">
+                <Flame className="w-4 h-4 fill-amber-500 animate-pulse" />
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">{currentStreak} Days</div>
-            <span className="text-[11px] font-semibold text-emerald-700 mt-1 block">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 translate-z-24">{currentStreak} Days</div>
+            <span className="text-[11px] font-semibold text-emerald-700 mt-1 block translate-z-12">
               Active consecutive days
             </span>
-          </div>
+          </TiltCard>
 
           {/* 2. Best Streak */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-card hover:shadow-card-hover transition">
-            <div className="flex items-center justify-between text-slate-500 mb-2">
+          <TiltCard
+            maxTilt={6}
+            scale={1.03}
+            perspective={800}
+            glare={true}
+            className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-5 shadow-3d-card hover:shadow-3d-card-hover transition-all overflow-hidden"
+          >
+            <div className="flex items-center justify-between text-slate-500 mb-2 translate-z-18">
               <span className="text-[11px] font-bold uppercase tracking-wider">Best Streak</span>
-              <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+              <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 shadow-3d-sm">
                 <Trophy className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">{bestStreak} Days</div>
-            <span className="text-[11px] font-semibold text-purple-700 mt-1 block">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 translate-z-24">{bestStreak} Days</div>
+            <span className="text-[11px] font-semibold text-purple-700 mt-1 block translate-z-12">
               Personal record streak
             </span>
-          </div>
+          </TiltCard>
 
           {/* 3. Total Steps */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-card hover:shadow-card-hover transition">
-            <div className="flex items-center justify-between text-slate-500 mb-2">
+          <TiltCard
+            maxTilt={6}
+            scale={1.03}
+            perspective={800}
+            glare={true}
+            className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-5 shadow-3d-card hover:shadow-3d-card-hover transition-all overflow-hidden"
+          >
+            <div className="flex items-center justify-between text-slate-500 mb-2 translate-z-18">
               <span className="text-[11px] font-bold uppercase tracking-wider">Total Steps</span>
-              <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shadow-3d-sm">
                 <Footprints className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 translate-z-24">
               {totalSteps.toLocaleString()}
             </div>
-            <span className="text-[11px] font-semibold text-slate-500 mt-1 block">
+            <span className="text-[11px] font-semibold text-slate-500 mt-1 block translate-z-12">
               Daily verified steps
             </span>
-          </div>
+          </TiltCard>
 
           {/* 4. Distance */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-card hover:shadow-card-hover transition">
-            <div className="flex items-center justify-between text-slate-500 mb-2">
+          <TiltCard
+            maxTilt={6}
+            scale={1.03}
+            perspective={800}
+            glare={true}
+            className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-5 shadow-3d-card hover:shadow-3d-card-hover transition-all overflow-hidden"
+          >
+            <div className="flex items-center justify-between text-slate-500 mb-2 translate-z-18">
               <span className="text-[11px] font-bold uppercase tracking-wider">Distance</span>
-              <div className="w-8 h-8 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600">
+              <div className="w-9 h-9 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600 shadow-3d-sm">
                 <Compass className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 translate-z-24">
               {totalDistance} KM
             </div>
-            <span className="text-[11px] font-semibold text-slate-500 mt-1 block">
+            <span className="text-[11px] font-semibold text-slate-500 mt-1 block translate-z-12">
               Running & cycling
             </span>
-          </div>
+          </TiltCard>
 
           {/* 5. Reward Points */}
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-card hover:shadow-card-hover transition col-span-2 lg:col-span-1">
-            <div className="flex items-center justify-between text-slate-500 mb-2">
+          <TiltCard
+            maxTilt={6}
+            scale={1.03}
+            perspective={800}
+            glare={true}
+            className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-5 shadow-3d-card hover:shadow-3d-card-hover transition-all col-span-2 lg:col-span-1 overflow-hidden"
+          >
+            <div className="flex items-center justify-between text-slate-500 mb-2 translate-z-18">
               <span className="text-[11px] font-bold uppercase tracking-wider">Reward Points</span>
-              <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+              <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shadow-3d-sm">
                 <Award className="w-4 h-4" />
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 translate-z-24">
               {rewardPoints.toLocaleString()}
             </div>
-            <span className="text-[11px] font-semibold text-emerald-700 mt-1 block">
+            <span className="text-[11px] font-semibold text-emerald-700 mt-1 block translate-z-12">
               {unlockedCount} Offers Unlocked
             </span>
-          </div>
+          </TiltCard>
         </div>
 
-        {/* Secondary Savings & Verified Banner */}
-        <div className="bg-emerald-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="space-y-1">
+        {/* Secondary Savings & Verified Banner with 3D Depth */}
+        <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-6 sm:p-7 text-white shadow-3d-emerald flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+          <div className="space-y-1 relative z-10">
             <div className="flex items-center gap-2 text-emerald-200 text-xs font-bold uppercase tracking-wider">
               <CheckCircle2 className="w-4 h-4 text-emerald-300" />
               <span>Real-World Fitness Savings Engine</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold">
+            <h2 className="text-xl sm:text-2xl font-extrabold drop-shadow-xs">
               Total Shopping Savings Generated: {formatINR(totalSavings)}
             </h2>
-            <p className="text-xs text-emerald-100 max-w-xl">
+            <p className="text-xs text-emerald-100 max-w-xl font-normal leading-relaxed">
               Consistent daily movement protects your streak and directly unlocks exclusive prices across top footwear, apparel, and wearables.
             </p>
           </div>
-          <div className="bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-2xl text-center border border-white/20 self-stretch sm:self-auto">
-            <span className="text-xs text-emerald-100 block">Unlocked Tiers</span>
-            <span className="text-xl font-extrabold">{unlockedCount} Offers</span>
+          <div className="bg-white/15 backdrop-blur-md px-6 py-3 rounded-2xl text-center border border-white/20 self-stretch sm:self-auto shadow-sm relative z-10">
+            <span className="text-xs text-emerald-100 block font-medium">Unlocked Tiers</span>
+            <span className="text-2xl font-extrabold">{unlockedCount} Offers</span>
           </div>
         </div>
 

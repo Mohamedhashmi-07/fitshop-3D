@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --perspective: 1000px;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
   color: #1e293b;
@@ -10,6 +14,232 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* 3D Perspective & Preservation Utilities */
+.perspective-800 {
+  perspective: 800px;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1500 {
+  perspective: 1500px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* 3D Z-axis Layer Stacking for Parallax in Cards */
+.translate-z-0 {
+  transform: translateZ(0px);
+}
+.translate-z-6 {
+  transform: translateZ(6px);
+}
+.translate-z-12 {
+  transform: translateZ(12px);
+}
+.translate-z-18 {
+  transform: translateZ(18px);
+}
+.translate-z-24 {
+  transform: translateZ(24px);
+}
+.translate-z-32 {
+  transform: translateZ(32px);
+}
+.translate-z-40 {
+  transform: translateZ(40px);
+}
+.translate-z-50 {
+  transform: translateZ(50px);
+}
+
+/* 3D Glass & Card Layer Styling */
+.glass-3d {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.08),
+              0 4px 12px -2px rgba(15, 23, 42, 0.03),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-card-3d {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 252, 0.88) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.07),
+              0 4px 12px -2px rgba(15, 23, 42, 0.02),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
+.glass-card-3d:hover {
+  border-color: rgba(34, 197, 94, 0.4);
+  box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12),
+              0 10px 20px -5px rgba(22, 163, 74, 0.15),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* 3D Tactile Buttons with Realistic Depth Press */
+.btn-3d-emerald {
+  box-shadow: 0 4px 0 #15803d, 0 8px 18px rgba(22, 163, 74, 0.28);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+  will-change: transform;
+}
+
+.btn-3d-emerald:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #15803d, 0 12px 22px rgba(22, 163, 74, 0.34);
+}
+
+.btn-3d-emerald:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #15803d, 0 4px 8px rgba(22, 163, 74, 0.2);
+}
+
+.btn-3d-dark {
+  box-shadow: 0 4px 0 #0f172a, 0 8px 18px rgba(15, 23, 42, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+  will-change: transform;
+}
+
+.btn-3d-dark:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #0f172a, 0 12px 22px rgba(15, 23, 42, 0.3);
+}
+
+.btn-3d-dark:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0f172a, 0 4px 8px rgba(15, 23, 42, 0.2);
+}
+
+.btn-3d-white {
+  box-shadow: 0 3px 0 #cbd5e1, 0 6px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+  will-change: transform;
+}
+
+.btn-3d-white:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 #94a3b8, 0 10px 18px rgba(0, 0, 0, 0.08);
+}
+
+.btn-3d-white:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #cbd5e1, 0 3px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Floating Animations */
+@keyframes float3d {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+@keyframes float3dAlt {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+}
+
+@keyframes pulseGlowSlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmerLight {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.animate-float-3d {
+  animation: float3d 5s ease-in-out infinite;
+}
+
+.animate-float-3d-alt {
+  animation: float3dAlt 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlowSlow 4s ease-in-out infinite;
+}
+
+.animate-orbit-spin {
+  animation: orbitSpin 20s linear infinite;
+}
+
+/* Perspective Grid Background */
+.bg-perspective-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 45%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 45%, #000 30%, transparent 80%);
+}
+
+/* 3D Depth Specular Glare */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.group:hover .card-glare,
+.glass-card-3d:hover .card-glare {
+  opacity: 1;
 }
 
 /* Smooth transition utility */
@@ -34,4 +264,23 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* Accessibility: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-float-3d,
+  .animate-float-3d-alt,
+  .animate-pulse-glow,
+  .animate-orbit-spin {
+    animation: none !important;
+  }
 }

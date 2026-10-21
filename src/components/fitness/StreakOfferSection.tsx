@@ -74,12 +74,12 @@ export const StreakOfferSection: React.FC<StreakOfferSectionProps> = ({ product 
   };
 
   return (
-    <div className="rounded-3xl border-2 border-emerald-500/20 bg-gradient-to-b from-emerald-50/40 to-white p-5 sm:p-6 shadow-sm space-y-6">
+    <div className="rounded-3xl border border-emerald-500/30 bg-gradient-to-b from-emerald-50/60 via-white to-white p-5 sm:p-6 shadow-3d-card space-y-6">
       {/* 1. Header Box */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-100 pb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-sm">
-            <Flame className="w-5 h-5 fill-amber-300 text-amber-300" />
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-3d-emerald">
+            <Flame className="w-5 h-5 fill-amber-300 text-amber-300 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">

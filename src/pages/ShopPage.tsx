@@ -116,8 +116,8 @@ export const ShopPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Filters and Controls Bar */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-4 mb-8 shadow-sm space-y-4">
+        {/* Filters and Controls Bar with 3D Depth */}
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200/90 p-5 mb-8 shadow-3d-card space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
             {/* Search Input */}
             <div className="md:col-span-6">

@@ -127,7 +127,7 @@ export const CheckoutPage: React.FC = () => {
           {/* Left Column: Delivery & Payment Details */}
           <div className="lg:col-span-7 space-y-6">
             {/* Delivery Address */}
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card space-y-4">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card space-y-4">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
                 <Truck className="w-5 h-5 text-emerald-600" />
                 <h2 className="font-bold text-slate-900 text-base">Delivery Information</h2>
@@ -143,7 +143,7 @@ export const CheckoutPage: React.FC = () => {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
+                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ export const CheckoutPage: React.FC = () => {
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
+                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
@@ -169,7 +169,7 @@ export const CheckoutPage: React.FC = () => {
                     required
                     value={addressLine}
                     onChange={(e) => setAddressLine(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
+                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
@@ -182,7 +182,7 @@ export const CheckoutPage: React.FC = () => {
                     required
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
+                    className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                   />
                 </div>
 
@@ -196,7 +196,7 @@ export const CheckoutPage: React.FC = () => {
                       required
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
+                      className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                     />
                   </div>
                   <div>
@@ -208,7 +208,7 @@ export const CheckoutPage: React.FC = () => {
                       required
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
+                      className="w-full px-3.5 py-2.5 text-xs bg-slate-50/80 border border-slate-200 rounded-xl focus:bg-white focus:border-emerald-500 outline-none transition"
                     />
                   </div>
                 </div>
@@ -216,7 +216,7 @@ export const CheckoutPage: React.FC = () => {
             </div>
 
             {/* Payment Method Selector */}
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card space-y-4">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card space-y-4">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
                 <CreditCard className="w-5 h-5 text-emerald-600" />
                 <h2 className="font-bold text-slate-900 text-base">Select Payment Method (Demo)</h2>
@@ -225,10 +225,10 @@ export const CheckoutPage: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <label
                   onClick={() => setPaymentMethod('upi')}
-                  className={`p-4 rounded-2xl border cursor-pointer flex flex-col items-center text-center gap-2 transition ${
+                  className={`p-4 rounded-2xl border cursor-pointer flex flex-col items-center text-center gap-2 transition duration-200 transform hover:-translate-y-0.5 ${
                     paymentMethod === 'upi'
-                      ? 'border-emerald-600 bg-emerald-50/50 shadow-sm'
-                      : 'border-slate-200 hover:border-slate-300'
+                      ? 'border-emerald-500 bg-emerald-50/70 shadow-3d-emerald'
+                      : 'border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-3d-sm'
                   }`}
                 >
                   <QrCode className="w-6 h-6 text-emerald-600" />
@@ -238,10 +238,10 @@ export const CheckoutPage: React.FC = () => {
 
                 <label
                   onClick={() => setPaymentMethod('card')}
-                  className={`p-4 rounded-2xl border cursor-pointer flex flex-col items-center text-center gap-2 transition ${
+                  className={`p-4 rounded-2xl border cursor-pointer flex flex-col items-center text-center gap-2 transition duration-200 transform hover:-translate-y-0.5 ${
                     paymentMethod === 'card'
-                      ? 'border-emerald-600 bg-emerald-50/50 shadow-sm'
-                      : 'border-slate-200 hover:border-slate-300'
+                      ? 'border-emerald-500 bg-emerald-50/70 shadow-3d-emerald'
+                      : 'border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-3d-sm'
                   }`}
                 >
                   <CreditCard className="w-6 h-6 text-slate-700" />
@@ -251,10 +251,10 @@ export const CheckoutPage: React.FC = () => {
 
                 <label
                   onClick={() => setPaymentMethod('cod')}
-                  className={`p-4 rounded-2xl border cursor-pointer flex flex-col items-center text-center gap-2 transition ${
+                  className={`p-4 rounded-2xl border cursor-pointer flex flex-col items-center text-center gap-2 transition duration-200 transform hover:-translate-y-0.5 ${
                     paymentMethod === 'cod'
-                      ? 'border-emerald-600 bg-emerald-50/50 shadow-sm'
-                      : 'border-slate-200 hover:border-slate-300'
+                      ? 'border-emerald-500 bg-emerald-50/70 shadow-3d-emerald'
+                      : 'border-slate-200 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-3d-sm'
                   }`}
                 >
                   <Banknote className="w-6 h-6 text-amber-600" />
@@ -263,7 +263,7 @@ export const CheckoutPage: React.FC = () => {
                 </label>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-500 flex items-center gap-2">
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200 text-xs text-slate-500 flex items-center gap-2">
                 <Lock className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Zero real money processed. Simulated sandbox for Smart India Hackathon.</span>
               </div>
@@ -272,7 +272,7 @@ export const CheckoutPage: React.FC = () => {
 
           {/* Right Column: Order Summary & Place Demo Order Button */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-card space-y-5 sticky top-24">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-slate-200/90 p-6 shadow-3d-card space-y-5 sticky top-24">
               <h2 className="text-base font-extrabold text-slate-900">Order Summary</h2>
 
               {/* Items preview list */}
@@ -282,7 +282,7 @@ export const CheckoutPage: React.FC = () => {
                     <img
                       src={item.product.images[0]}
                       alt={item.product.name}
-                      className="w-12 h-12 rounded-lg object-cover border border-slate-100 shrink-0"
+                      className="w-12 h-12 rounded-xl object-cover border border-slate-100 shrink-0 shadow-sm"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="font-bold text-slate-800 truncate">{item.product.name}</div>
@@ -341,7 +341,7 @@ export const CheckoutPage: React.FC = () => {
 
               {/* Status Badge */}
               {totals.totalFitnessDiscount > 0 && (
-                <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs font-bold text-emerald-800 flex items-center justify-center gap-1.5">
+                <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs font-bold text-emerald-800 flex items-center justify-center gap-1.5 shadow-3d-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                   <span>✓ Fitness offer applied</span>
                 </div>
@@ -351,7 +351,7 @@ export const CheckoutPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center justify-center gap-2 transition disabled:opacity-50"
+                className="w-full py-4 px-6 btn-3d-emerald text-white font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 <ShieldCheck className="w-5 h-5" />
                 <span>{isSubmitting ? 'Placing Order...' : 'Place Demo Order'}</span>

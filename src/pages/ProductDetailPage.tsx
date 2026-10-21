@@ -23,6 +23,7 @@ import { DiscountBadge } from '../components/common/DiscountBadge';
 import { ActivityProgress } from '../components/common/ActivityProgress';
 import { StreakOfferSection } from '../components/fitness/StreakOfferSection';
 import { formatINR } from '../utils/pricing';
+import { TiltCard } from '../components/3d/TiltCard';
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -94,26 +95,32 @@ export const ProductDetailPage: React.FC = () => {
 
         {/* Main Grid: Visuals on Left, Product Details & Action Engine on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left Column: Image Gallery */}
+          {/* Left Column: Image Gallery with 3D TiltCard */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="relative aspect-square w-full rounded-3xl bg-slate-50 border border-slate-200/80 overflow-hidden shadow-sm">
+            <TiltCard
+              maxTilt={8}
+              scale={1.02}
+              perspective={1100}
+              glare={true}
+              className="relative aspect-square w-full rounded-3xl bg-slate-50 border border-slate-200/90 overflow-hidden shadow-3d-card"
+            >
               <img
                 src={product.images[activeImageIndex] || product.images[0]}
                 alt={product.name}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center translate-z-12 transition-transform duration-500"
               />
               <button
                 onClick={() => toggleWishlist(product.id)}
-                className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition ${
+                className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-all duration-200 translate-z-24 shadow-sm ${
                   inWishlist
-                    ? 'bg-rose-50 text-rose-600 border border-rose-200 shadow-sm'
-                    : 'bg-white/80 hover:bg-white text-slate-600 hover:text-rose-500 border border-slate-200'
+                    ? 'bg-rose-50 text-rose-600 border border-rose-200 scale-105'
+                    : 'bg-white/85 hover:bg-white text-slate-600 hover:text-rose-500 border border-slate-200 hover:scale-110'
                 }`}
                 aria-label={inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
               >
                 <Heart className={`w-5 h-5 ${inWishlist ? 'fill-rose-500' : ''}`} />
               </button>
-            </div>
+            </TiltCard>
 
             {/* Thumbnails */}
             {product.images.length > 1 && (
@@ -122,10 +129,10 @@ export const ProductDetailPage: React.FC = () => {
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`w-20 h-20 rounded-2xl overflow-hidden border-2 transition ${
+                    className={`w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all duration-200 ${
                       activeImageIndex === idx
-                        ? 'border-emerald-600 shadow-md ring-2 ring-emerald-100'
-                        : 'border-slate-200 hover:border-slate-300'
+                        ? 'border-emerald-600 shadow-3d-sm ring-2 ring-emerald-200 scale-105'
+                        : 'border-slate-200 hover:border-slate-300 hover:scale-102'
                     }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
@@ -168,11 +175,11 @@ export const ProductDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Price Box */}
-            <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/80">
+            {/* Price Box with 3D Depth */}
+            <div className="p-5 rounded-3xl bg-white/95 backdrop-blur-sm border border-slate-200/90 shadow-3d-card">
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="text-xs text-slate-500 block mb-1">
+                  <span className="text-xs text-slate-500 block mb-1 font-medium">
                     {unlocked ? 'Discounted Member Price' : 'Standard Retail Price'}
                   </span>
                   <PriceDisplay
@@ -198,7 +205,7 @@ export const ProductDetailPage: React.FC = () => {
 
             {/* Quantity and Primary Action */}
             <div className="flex items-center gap-4 pt-2">
-              <div className="flex items-center border border-slate-300 rounded-xl p-1 bg-white">
+              <div className="flex items-center border border-slate-300 rounded-xl p-1 bg-white shadow-xs">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   className="w-8 h-8 flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-lg transition font-bold"
@@ -219,7 +226,7 @@ export const ProductDetailPage: React.FC = () => {
               <button
                 onClick={handleAddToCart}
                 type="button"
-                className="flex-1 py-3.5 px-6 bg-slate-900 hover:bg-emerald-600 text-white font-bold text-sm rounded-xl shadow-md flex items-center justify-center gap-2 transition"
+                className="flex-1 py-4 px-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl shadow-md btn-3d-dark flex items-center justify-center gap-2"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>
